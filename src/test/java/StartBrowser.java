@@ -3,7 +3,6 @@
  */
 
 import io.appium.java_client.AppiumDriver;
-//import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +25,7 @@ public class StartBrowser {
         capabilities.setCapability("deviceName","aphone");
         capabilities.setCapability("appPackage", "com.yandex.browser");
         capabilities.setCapability("appActivity", ".YandexBrowserMainActivity");
-        driver = new AndroidDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+        driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
     }
 
 
