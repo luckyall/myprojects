@@ -7,31 +7,33 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeoutException;
 
 
 public class StartBrowser {
-    private AppiumDriver driver;
-
+    WebDriver driver;
 
     @Before
-    public void BeforeTest() throws Exception{
+    public void setUp() throws MalformedURLException {
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability("deviceName","aphone");
+        capabilities.setCapability("deviceName","Emulator");
+        capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("appPackage", "com.yandex.browser");
-        capabilities.setCapability("appActivity", ".YandexBrowserMainActivity");
-        driver = new AppiumDriver(new URL("http://127.0.0.1:4444/wd/hub"), capabilities);
+        capabilities.setCapability("appActivity", "YandexBrowserActivity");
+        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
     }
 
-
     @Test
-    public void Test() throws Exception{
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+    public void test() throws Exception {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
 
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("bro_sentry_bar_fake")));
@@ -42,9 +44,8 @@ public class StartBrowser {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("bro_sentry_bar_fake")));
     }
 
-
     @After
-    public void After() throws Exception {
+    public void tearDown(){
         driver.quit();
     }
 
